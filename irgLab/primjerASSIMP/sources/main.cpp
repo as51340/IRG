@@ -29,9 +29,9 @@ int main(int argc, char * argv[]) {
 	std::string path(argv[0]);
 	std::string dirPath(path, 0, path.find_last_of("\\/"));
 	std::string resPath(dirPath);
-	resPath.append("\\resources");
+	resPath.append("\\resources"); //za linux pretvoriti u forwardslash
 	std::string objPath(resPath);
-	objPath.append("\\glava\\glava.obj");
+	objPath.append("\\glava\\glava.obj"); //za linux pretvoriti u forwardslash
 
 	const aiScene* scene = importer.ReadFile(objPath.c_str(),
 		aiProcess_CalcTangentSpace |

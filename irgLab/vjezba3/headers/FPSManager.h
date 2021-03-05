@@ -7,7 +7,7 @@
 
 //#include "Helper.h"
 #ifndef __glfw_h_
-	#include "GLFW\glfw3.h" // We need GLFW for this, so let's check for it- although it'd be a doddle to convert to non-GLFW using code.
+	#include "GLFW/glfw3.h" // We need GLFW for this, so let's check for it- although it'd be a doddle to convert to non-GLFW using code.
 #endif
 
 
