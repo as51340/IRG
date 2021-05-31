@@ -50,18 +50,18 @@ Shader* loadShader(char* path, char* naziv) {
 }
 
 
-void framebuffer_size_callback(GLFWwindow * window, int Width, int Height)
+void framebuffer_size_callback(GLFWwindow* window, int Width, int Height)
 {
 	width = Width;
 	height = Height;
 }
-  
 
-int main(int argc, char * argv[]) {
-	
+
+int main(int argc, char* argv[]) {
+
 	//ako se ne pokrece!!
 	//primjer 4b koristi funkcionalnosti iz novijih verzija OpenGL, pa ako ga zakomentirate mozda popravi vas problem
-	
+
 	GLFWwindow* window;
 
 
@@ -93,16 +93,16 @@ int main(int argc, char * argv[]) {
 	glClearColor(0.15, 0.1, 0.1, 1);
 
 	//generiranje buffera
-	GLuint VAO[4];
+	GLuint VAO[4]; //vertex array object. Samo jedanput moramo pozivati neki kod na poèetku, A.Š
 	GLuint VBO[5];
-	GLuint EBO;
+	GLuint EBO; //element buffer object, za indeksirani pristup za smanjivanje memorije i overheada, A.Š
 
 	glGenVertexArrays(4, VAO);
 	glGenBuffers(5, VBO);
 	glGenBuffers(1, &EBO);
-	
-	Shader *sjencar[4];
-	
+
+	Shader* sjencar[4]; //zato jer koristimo 4 razlièita pristupa bufferima, A.Š?
+
 	/*********************************************************************************************/
 	//primjer 1
 	//vrhovi kroz buffer, a boja kroz uniformnu varijablu
@@ -111,17 +111,17 @@ int main(int argc, char * argv[]) {
 
 	GLint lokacijaUniformVarijable = glGetUniformLocation(sjencar[0]->ID, "u_color");
 
-	float trokutKoordinate[9] = {
+	float trokutKoordinate[9] = { //ovo je veæ normalizirano
 		//  koordinate
 			-1, -1, 0,
 			 1, -1, 0,
 			0,  1, 0 };
-	
+
 	glBindVertexArray(VAO[0]);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(trokutKoordinate), trokutKoordinate, GL_STATIC_DRAW);
-	
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
 	glEnableVertexAttribArray(0);
@@ -205,9 +205,9 @@ int main(int argc, char * argv[]) {
 	glm::mat4 skaliranje = glm::scale(jedinicna, glm::vec3(0.25, 0.25, 0.25));
 	glm::mat4 poljeTransformacija[16];
 	int brojac = 0;
-	for (float i = -1; i < 1; i+=0.5) {
-		for (float j = -1; j < 1; j+=0.5) {
-			poljeTransformacija[brojac++] =  glm::translate(jedinicna, glm::vec3(j+0.25, i+0.25 , 0)) * skaliranje;
+	for (float i = -1; i < 1; i += 0.5) {
+		for (float j = -1; j < 1; j += 0.5) {
+			poljeTransformacija[brojac++] = glm::translate(jedinicna, glm::vec3(j + 0.25, i + 0.25, 0)) * skaliranje;
 		}
 	}
 
@@ -261,16 +261,16 @@ int main(int argc, char * argv[]) {
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		
+
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, true);
-		
+
 		/********************************************************/
 		//primjer 1
 		glUseProgram(sjencar[0]->ID);
 		glUniform3f(lokacijaUniformVarijable, 0.5, 1.0, 1.0);
-	
-		glViewport(0, height/2, width/3, height/2);
+
+		glViewport(0, height / 2, width / 3, height / 2);
 
 		glBindVertexArray(VAO[0]);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -281,7 +281,7 @@ int main(int argc, char * argv[]) {
 
 		glUseProgram(sjencar[1]->ID);
 
-		glViewport(width/3, height/2, width/3, height/2);
+		glViewport(width / 3, height / 2, width / 3, height / 2);
 
 		glBindVertexArray(VAO[1]);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -291,7 +291,7 @@ int main(int argc, char * argv[]) {
 		//primjer 3
 
 		glUseProgram(sjencar[1]->ID);
-		glViewport(2*width/3, height/2, width/3, height/2);
+		glViewport(2 * width / 3, height / 2, width / 3, height / 2);
 
 		glBindVertexArray(VAO[2]);
 		glDrawElements(GL_TRIANGLES, sizeof(indeksi), GL_UNSIGNED_INT, 0);
@@ -305,13 +305,13 @@ int main(int argc, char * argv[]) {
 
 
 		glBindVertexArray(VAO[2]);
-		
-		
+
+
 		for (int i = 0; i < 16; i++) {
 			glUniformMatrix4fv(lokacijaUniformVarijable2, 1, GL_FALSE, &poljeTransformacija[i][0][0]);
-			glDrawElements(GL_TRIANGLES, sizeof(indeksi), GL_UNSIGNED_INT, 0);  
+			glDrawElements(GL_TRIANGLES, sizeof(indeksi), GL_UNSIGNED_INT, 0);
 		}
-		
+
 
 		glBindVertexArray(0);
 
@@ -320,22 +320,22 @@ int main(int argc, char * argv[]) {
 		//primjer 4b
 		//samo jednom pozivamo iscrtavanje
 		glUseProgram(sjencar[3]->ID);
-		glViewport(width / 3,0, width / 3, height / 2);
+		glViewport(width / 3, 0, width / 3, height / 2);
 
 		glBindVertexArray(VAO[3]);
-		glDrawElementsInstanced(GL_TRIANGLES, sizeof(indeksi), GL_UNSIGNED_INT, 0, 16); 
-		
+		glDrawElementsInstanced(GL_TRIANGLES, sizeof(indeksi), GL_UNSIGNED_INT, 0, 16);
+
 		glBindVertexArray(0);
-		
-		 
+
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
-	}   
-	
+	}
+
 	for (int i = 0; i < 4; i++)
 		delete sjencar[i];
-	
+
 	glDeleteBuffers(5, VBO);
 	glDeleteBuffers(1, &EBO);
 	glDeleteVertexArrays(4, VAO);
@@ -343,5 +343,5 @@ int main(int argc, char * argv[]) {
 	glfwTerminate();
 
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

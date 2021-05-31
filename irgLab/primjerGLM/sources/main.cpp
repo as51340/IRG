@@ -19,12 +19,12 @@ const int mWidth = 1280;
 const int mHeight = 800;
 
 
-int main(int argc, char * argv[]) {
+int main(int argc, char* argv[]) {
 
 	//zbroj vektora
 	glm::vec3 v1 = glm::vec3(2, 3, -4) + glm::vec3(-1, 4, -3);
 	std::cout << "v1= " << glm::to_string(v1) << std::endl;
-	
+
 	//dot umnozak dva vektora
 	glm::vec3 s = v1 * glm::vec3(-1, 4, -3);
 	std::cout << "s= " << glm::to_string(s) << std::endl;
@@ -52,6 +52,9 @@ int main(int argc, char * argv[]) {
 	//umnožak dva inverza matrice
 	glm::mat3 m3 = glm::inverse(glm::mat3(-24, 18, 5, 20, -15, -4, -5, 4, 1)) * glm::inverse(glm::mat3(1, 2, 3, 0, 1, 4, 5, 6, 0));
 	std::cout << "m3= " << glm::to_string(m3) << std::endl;
+
+	glm::mat2 m50(2, 4, 5, 6);
+	std::cout << "Determinanta: " << glm::determinant(m50) << std::endl;
 
 
 	//rjesavanje linearnih jednadzbi 
@@ -87,5 +90,5 @@ int main(int argc, char * argv[]) {
 	std::cout << "rjesenje jednadzbe= " << glm::to_string(rjesenje2) << std::endl;
 
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

@@ -6,21 +6,28 @@
 
 
 void (*Grafika::mouse_callback_user)(int, int, int) = 0;
+void(*Grafika::key_callback_user)() = 0;
 glm::vec2 Grafika::cursorPosition(0, 0);
-GLFWwindow *Grafika::window = 0;
+GLFWwindow* Grafika::window = 0;
 
-void Grafika::mouse_button_callback(GLFWwindow * window, int button, int action, int mods)
+void Grafika::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 		(*mouse_callback_user)(cursorPosition.x / 10, cursorPosition.y / 10, 0);
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 		(*mouse_callback_user)(cursorPosition.x / 10, cursorPosition.y / 10, 1);
-
 }
 
-void Grafika::cursor_position_callback(GLFWwindow * window, double xpos, double ypos)
+void Grafika::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	cursorPosition = glm::vec2(xpos, ypos);
+}
+
+void Grafika::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	if (key == GLFW_KEY_R && action == GLFW_PRESS) {
+		std::cout << "R pressed" << std::endl;
+		(*key_callback_user)();
+	}
 }
 
 int Grafika::loadGlfw()
@@ -69,23 +76,23 @@ int Grafika::loadRasterShader(char* path)
 
 
 
-Grafika::Grafika(int Width, int Height, glm::vec3 ClearColor, char *path):
+Grafika::Grafika(int Width, int Height, glm::vec3 ClearColor, char* path) :
 	width(Width),
 	height(Height),
 	clearColor(ClearColor)
 {
-	raster = new float[Width * Height *3];
-	for (int i =0; i < height; i++)
+	raster = new float[Width * Height * 3];
+	for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++) {
-			raster[i*width * 3 + j * 3] = clearColor.x;
-			raster[i*width * 3 + j * 3 + 1] = clearColor.y;
-			raster[i*width * 3 + j * 3 + 2] = clearColor.z;
+			raster[i * width * 3 + j * 3] = clearColor.x;
+			raster[i * width * 3 + j * 3 + 1] = clearColor.y;
+			raster[i * width * 3 + j * 3 + 2] = clearColor.z;
 		}
 
 	loadGlfw();
 
 	gladLoadGL();
-	
+
 	fprintf(stderr, "OpenGL %s\n", glGetString(GL_VERSION));
 
 
@@ -93,13 +100,13 @@ Grafika::Grafika(int Width, int Height, glm::vec3 ClearColor, char *path):
 
 	loadRasterShader(path);
 
-	
+
 
 	glUniform1i(glGetUniformLocation(rasterShader->ID, "texture1"), 0);
 
 	glGenTextures(1, &rasterID);
 	glBindTexture(GL_TEXTURE_2D, rasterID);
-	
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, (const void*)raster);
 
 
@@ -138,13 +145,13 @@ int Grafika::osvijetliFragment(int x, int y) {
 	return osvijetliFragment(x, y, glm::vec3(1, 1, 1));
 }
 
-int Grafika::osvijetliFragment(int x, int y, glm::vec3 boja){
+int Grafika::osvijetliFragment(int x, int y, glm::vec3 boja) {
 	if (x >= 0 && x < width || y >= 0 && y < height) {
-		raster[y*width * 3 + x * 3] = boja.x;
-		raster[y*width * 3 + x * 3 + 1] = boja.y;
-		raster[y*width * 3 + x * 3 + 2] = boja.z;
+		raster[y * width * 3 + x * 3] = boja.x;
+		raster[y * width * 3 + x * 3 + 1] = boja.y;
+		raster[y * width * 3 + x * 3 + 2] = boja.z;
 		return 0;
-		
+
 	}
 	else {
 		std::cerr << "ERROR: pokusaj osvjetljavanja izvan podrucja";
@@ -152,11 +159,11 @@ int Grafika::osvijetliFragment(int x, int y, glm::vec3 boja){
 	}
 }
 
-	
+
 
 void Grafika::pobrisiProzor()
 {
-	std::fill_n(raster, width*height * 3, 0);
+	std::fill_n(raster, width * height * 3, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
@@ -191,12 +198,18 @@ bool Grafika::trebaZatvoriti()
 
 int Grafika::registrirajFunkcijuZaKlikMisa(void(*Mouse_callback_user)(int, int, int))
 {
-	
+
 	glfwSetCursorPosCallback(window, cursor_position_callback);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 
 	mouse_callback_user = Mouse_callback_user;
-	
+
+	return 0;
+}
+
+int Grafika::registerResetKey(void(*Key_callback_user)()) {
+	glfwSetKeyCallback(window, key_callback);
+	key_callback_user = Key_callback_user;
 	return 0;
 }
 

@@ -23,6 +23,8 @@ private:
 	static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 	static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 	static void(*mouse_callback_user)(int, int, int);
+	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void(*key_callback_user)();
 
 	int loadGlfw();
 	int loadRasterShader(char* path);
@@ -36,26 +38,26 @@ private:
 
 	static GLFWwindow* window;
 
-	float rasterVertices[20] = { 
-	//  verticesCoord	textureCoord
-		-1, -1, 0,		0, 0,
-		 1, -1, 0,		1, 0,
-		-1,  1, 0,		0, 1,
-		 1,  1, 0,		1, 1 };
+	float rasterVertices[20] = {
+		//  verticesCoord	textureCoord
+			-1, -1, 0,		0, 0,
+			 1, -1, 0,		1, 0,
+			-1,  1, 0,		0, 1,
+			 1,  1, 0,		1, 1 };
 
 
-	float *raster;
+	float* raster;
 	unsigned int rasterID;
 	unsigned int VAO;
 	unsigned int VBO;
 
-	Shader *rasterShader;
+	Shader* rasterShader;
 
-	
+
 
 public:
 	//konstruktor sa sirinom i visinom prozora, bojom kojom se brise prozor i put do programa
-	Grafika(int width, int height, glm::vec3 clearColor, char *path); 
+	Grafika(int width, int height, glm::vec3 clearColor, char* path);
 	//destruktor koji oslobodi memoriju i unisti kontekst OpenGL-a
 	~Grafika();
 	// pozicija kursora
@@ -73,6 +75,8 @@ public:
 	bool trebaZatvoriti();
 
 	static int registrirajFunkcijuZaKlikMisa(void(*mouse_callback_user)(int, int, int));
+
+	static int registerResetKey(void(*key_callback_user)());
 
 };
 
