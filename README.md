@@ -38,7 +38,7 @@ Implementation of Bresenham's algorithm. Lines are drawn in the center of screen
 
 Create a polygon with left mouse button and fill it with right mouse button.
 
-![polgons][https://github.com/as51340/IRG/blob/master/images/Polygon.png]
+![polgons](https://github.com/as51340/IRG/blob/master/images/Polygon.png)
 
 ## Triangles
 
@@ -47,7 +47,7 @@ Drawing filled triangles using OpenGL VAO, VBO and EBO.
 ## Wired model
 
 Wired model of robot's head.
-![WIRED][https://github.com/as51340/IRG/blob/master/images/Wired.png]
+![WIRED](https://github.com/as51340/IRG/blob/master/images/Wired.png)
 
 ## OpenGL camera
 
@@ -56,7 +56,7 @@ Implementation of model, view and projection matrices. User can move his eye vec
 ## Removing hidden polygons 
 
 Backface culling. Three different algorithms used for shading. Constant, Gouraud, Phong. 
-![hidden-polgons][https://github.com/as51340/IRG/blob/master/images/RemovingBackPolygons.png]
+![hidden-polgons](https://github.com/as51340/IRG/blob/master/images/RemovingBackPolygons.png)
 
 ## Bezier curve
 
@@ -68,7 +68,7 @@ Usage of minimaps, interpolation using nearest neighbour...
 ## Shadow mapping
 
 Scene is first drawn from light's perspective and with this we get depth's map. Then second time it's drawn from observer's position for obtaining correct shadow position. Bias of 0.005 is used for removing effect called shadown acne. 
-![shadow][https://github.com/as51340/IRG/blob/master/images/shadow.gif]
+![shadow](https://github.com/as51340/IRG/blob/master/images/shadow.gif)
 
 
 
