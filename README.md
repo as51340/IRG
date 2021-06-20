@@ -32,7 +32,7 @@ http://creativecommons.org/licenses/by-nc-nd/3.0/hr/
 
 Implementation of Bresenham's algorithm. Lines are drawn in the center of screen and lines cutting is implemented using Cohen Sutherland's algorithm. With left mouse button you determine two points and with right mouse button lines are drawn only in the screen center.
 
-![bresenham][https://github.com/as51340/IRG/blob/master/images/Bresenham.png?raw=true]
+![bresenham](https://github.com/as51340/IRG/blob/master/images/Bresenham.png?raw=true)
 
 ## Polygons
 
