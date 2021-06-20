@@ -175,7 +175,7 @@ int main(int argc, char* argv[]) {
 	Camera camera(eye, target, cameraUp);
 
 	Light light;
-	light.position = glm::vec3(2, 2, 5);
+	light.position = glm::vec3(3, 4, 5);
 	light.ii = glm::vec3(0.7, 0.7, 0.4);
 	light.ia = glm::vec3(0.0, 0.0, 0.0);
 

@@ -100,7 +100,7 @@ void Renderer::init() {
 	glClearColor(0.15, 0.1, 0.1, 1); //boja brisanja platna izmedu iscrtavanja dva okvira
 	glfwSwapInterval(0); //ne cekaj nakon iscrtavanja (vsync)
 
-	FPSManager FPSManagerObject(window, 60, 1.0, "3. lab. vjezba");
+	FPSManager FPSManagerObject(window, 60, 1.0, "4. lab. vjezba");
 	glfwSetWindowUserPointer(window, this);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); //funkcija koja se poziva prilikom mijenjanja velicine prozora
 	glfwSetKeyCallback(window, key_callback);
