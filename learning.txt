@@ -1,0 +1,100 @@
+Konici - krivulje koje dobijemo kao presjek ravnine i stošca.
+K - karakteristična matrica kvadratne krivulje
+X=[t^2 t 1]K
+kvadratna razlomljena krivulja je određena s tri točke
+to šta deriviramo samo znači da možemo iskoristiti derivacije točkaka, a ne samo obične točke
+M ne ovisi o obliku krivulje već o izboru točaka(derivacija)
+H - krivukja prolazi početnom i završnom točkom uz zadane derivacije
+Hermitova krivulja
+a i b su valjda derivacije u početnoj i krajnjoj točki - onda uvodimo još jednu dodatnu točku kojom mora prolaziti
+Iz homogenog u radni prostor se dijeli - x4 je homogena koordinata
+dimenzija matrice odgovara broju nepoznanica
+Bezierove površine - krpica Beziera - krivulja koja se giba ostavlja trag i stvara površinu.
+Generatrisa - generira površinu - to su Bezierove krivulje, a onda direktrise njih usmjeravaju povezivajući točke poligona.
+Direktrisa - oblikuju gibanje generatrise
+C0 kontinuitet - točke zajedničke za krpice s lijeva i desno
+c1 - derivacija krpica slijeva jednako zdesna
+
+Prva i zadnja direktrisa su glavne jer kontrolne točke generatrise leže na njima
+NURBS surfaces su najopćenitije koje se koriste - redoslijed u i v nema veze, ne utječe na konačni ishod
+
+Uklanjanje skrivenih linija i površina
+Za vektorski produkt ona zbrajanja kutova - ni rekla točno koji smjer samo da će jedanput gledati u jednom smjeru, a drugi put u drugom smjeru.
+Min-maks provjera - da li se opisani pravokutnici ne prekrivaju i ako se oni prekrivaju, onda su potrebne daljnje provjere
+u 3D tijelu koristimo kvadre ili sfere.
+Geometrijsko uređivanje - BTF - slikarov algoritam iscrtavanja - najprije se iscrtavaju najudaljeniji poligoni, a zatim sve bliži i bliži, tu zapravo sortiramo poligone
+Problemi: dva konkavna ili jedan konkavan poligon 1.slučaj
+2.slučaj, ne možemo sortirati - konveksni poligoni
+3.slučaj - jedan poligon probija ovaj drugi pa opet ne možemo ništa napraviti
+Koristi se u kombinaciji sa BSP strukturom podataka pa se ovi slučajevi razrješavaju
+Watkinsov postupak - scan line method
+- procijiramo poligone u xy ravninu
+- promatramo ravninu xz 
+Warnockov postupak
+
+c2 - ista zakrivljenost slijeva i zdesna
+
+Ostvarivanje sjena:
+Vrste sjena_
+- oštre i meke sjene
+- umbra i penumbra - penumbra je valjda meka sjena
+- udaljenost do podloge utječe na sjenu
+- lažne sjene - projekcije jednostavnih poligona
+- sjene u teksturama - zapečene
+- postupak praćenja zrake - sam postupak uzima u obzir prepreke prema izvoru
+- projicirane sjene - problem s odsijecanjem
+- mape sjene - sjene su zrnate
+- akne sjene - neželjeni efekt - ploha objekta baca sjenu sama na sebe pa se dodaje mali odmak bias - no ako je preveliki onda se dešava =>
+- efekt petra pana - sjena se odvaja od objekta ili na drugu stranu zauzima dio objekta
+- kaskadne sjene
+- volumen sjene: drugačiji način razmišljanja - volumen tvori sjenu
+- dubina sjene: depth count - prolazak zrake iz očišta kroz svaki prednji poligon uvećava dubinu sjene, a izlazak iz volumena sjene umanjuje dubinu sjene poništavajući učinak volumena sjene
+CMYK je suptraktivno miješanje boja
+RGB je aditivno
+dijagram kromatičnosti CIE
+Magenta je ljubičasta - plava i crvena, a cyan je tirkizna kombinacijom zelene i plave
+RGB ne pokriva sve što čovjek vidi iako ima više kombinacija
+Zelen papir je zelen jer reflektira zelenu, a apsorbira druge boje.
+
+saturation - zasićenost - koliko je boju razrijedila bijela odnosno siva svjetlost
+Pokus podudaranja boja - ako je dodao još malo crvene svjetlosti s lijeve strane onda je uspio postići poduduranja
+- oko 500nm podudaranje boja nije bilo ostvarivo samo s RGB komponentama
+
+
+
+Teksture
+- za poligone koji su blizi treba napraviti uvećanje
+- za udaljenije koristi se minifikacija i treba napraviti umanjenje
+- mod funkcija za preslikavanje elemenata koji su van - ponavljanje slike
+- neka se uzme zadnja vrijednost slikovnog elementa - možemo po x i po y to napraviti
+- anizotropno kada nije sve isto u svim smjerovima
+- linearna inter - nije krzavo, ali je mutno
+- anizotropno nijedno ni drugo
+- imamo prefiltriranje područja koje se preslika u element teksture - računa se prosječna vrijednost slikovnih elemenata teksture
+- supersampling - po svakom slikovnom elementu u projekciji dohvaća 4 ili više elemenata tekstrue
+- mipmape su trilinearna interpolacija između nekih dijelova mapa
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
