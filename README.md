@@ -1,5 +1,5 @@
 # IRG
-Laboratory exercises for course Interactive Computer Graphics.
+Course project for Interactive Computer Graphics.
 
 # Licence
 
